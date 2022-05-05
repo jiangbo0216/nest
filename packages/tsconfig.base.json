@@ -1,4 +1,5 @@
 {
+  "extends": "../tsconfig.json",
   "compilerOptions": {
     "module": "commonjs",
     "declaration": true,
@@ -11,7 +12,6 @@
     "noLib": false,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "useUnknownInCatchVariables": false,
     "target": "es2017",
     "sourceMap": false,
     "allowJs": false,

@@ -6,6 +6,7 @@ import stringify from 'fast-safe-stringify';
 import * as hash from 'object-hash';
 
 export class ModuleTokenFactory {
+  //# WeakMap
   private readonly moduleIdsCache = new WeakMap<Type<unknown>, string>();
 
   public create(
@@ -37,6 +38,7 @@ export class ModuleTokenFactory {
     if (moduleId) {
       return moduleId;
     }
+    //# generate uuid
     moduleId = randomStringGenerator();
     this.moduleIdsCache.set(metatype, moduleId);
     return moduleId;

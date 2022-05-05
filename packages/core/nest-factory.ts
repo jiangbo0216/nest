@@ -67,12 +67,14 @@ export class NestFactoryStatic {
     serverOrOptions?: AbstractHttpAdapter | NestApplicationOptions,
     options?: NestApplicationOptions,
   ): Promise<T> {
+    //# 判断是否是http server
     const [httpServer, appOptions] = this.isHttpServer(serverOrOptions)
       ? [serverOrOptions, options]
       : [this.createHttpAdapter(), serverOrOptions];
 
     const applicationConfig = new ApplicationConfig();
     const container = new NestContainer(applicationConfig);
+    //#  assignment to abortOnError
     this.setAbortOnError(serverOrOptions, options);
     this.registerLoggerConfiguration(appOptions);
 
@@ -245,6 +247,7 @@ export class NestFactoryStatic {
     this.autoFlushLogs = autoFlushLogs ?? true;
   }
 
+  //# http adapter
   private createHttpAdapter<T = any>(httpServer?: T): AbstractHttpAdapter {
     const { ExpressAdapter } = loadAdapter(
       '@nestjs/platform-express',
@@ -257,6 +260,7 @@ export class NestFactoryStatic {
   private isHttpServer(
     serverOrOptions: AbstractHttpAdapter | NestApplicationOptions,
   ): serverOrOptions is AbstractHttpAdapter {
+    //? patch 来判断 http server
     return !!(
       serverOrOptions && (serverOrOptions as AbstractHttpAdapter).patch
     );

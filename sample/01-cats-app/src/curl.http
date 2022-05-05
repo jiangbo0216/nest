@@ -1,0 +1,16 @@
+curl http://localhost:3000/cats
+
+###
+
+curl http://localhost:3000/cats/1
+
+###
+POST http://localhost:3000/cats HTTP/1.1
+content-type: application/json
+
+{
+    "name": "sample",
+    "age": 21,
+    "breed": "local",
+    "username": "admin"
+}

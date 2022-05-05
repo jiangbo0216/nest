@@ -40,6 +40,7 @@ export type InjectableOptions = ScopeOptions;
  *
  * @publicApi
  */
+//# define metadata __injectable__ scope:options
 export function Injectable(options?: InjectableOptions): ClassDecorator {
   return (target: object) => {
     Reflect.defineMetadata(INJECTABLE_WATERMARK, true, target);

@@ -15,6 +15,7 @@ import { validateModuleKeys } from '../../utils/validate-module-keys.util';
  *
  * @publicApi
  */
+//# ModuleMetadata imports exports providers controllers
 export function Module(metadata: ModuleMetadata): ClassDecorator {
   const propsKeys = Object.keys(metadata);
   validateModuleKeys(propsKeys);
@@ -22,6 +23,7 @@ export function Module(metadata: ModuleMetadata): ClassDecorator {
   return (target: Function) => {
     for (const property in metadata) {
       if (metadata.hasOwnProperty(property)) {
+        //# reflect-metadata define function metadata
         Reflect.defineMetadata(property, (metadata as any)[property], target);
       }
     }

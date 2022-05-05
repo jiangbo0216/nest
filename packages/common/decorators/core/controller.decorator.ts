@@ -14,6 +14,7 @@ import { isString, isUndefined } from '../../utils/shared.utils';
  *
  * @publicApi
  */
+//# controller decorator options
 export interface ControllerOptions extends ScopeOptions, VersionOptions {
   /**
    * Specifies an optional `route path prefix`.  The prefix is pre-pended to the
@@ -169,6 +170,7 @@ export function Controller(
           : prefixOrOptions.version,
       ];
 
+  //# define object metadata __controller__ path host __version__
   return (target: object) => {
     Reflect.defineMetadata(CONTROLLER_WATERMARK, true, target);
     Reflect.defineMetadata(PATH_METADATA, path, target);

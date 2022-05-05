@@ -1,7 +1,8 @@
 {
   "extends": "./../tsconfig.base.json",
   "compilerOptions": {
-    "baseUrl": "./"
+    //# lead to (bring about) reading source code can not jump accurately
+    // "baseUrl": "./"
   },
   "include": ["*.ts", "**/*.ts"]
 }

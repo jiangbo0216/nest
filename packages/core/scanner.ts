@@ -69,6 +69,7 @@ export class DependenciesScanner {
     private readonly applicationConfig = new ApplicationConfig(),
   ) {}
 
+  //# 依赖扫描 dependencies scan
   public async scan(module: Type<any>) {
     await this.registerCoreModule();
     await this.scanForModules(module);
@@ -79,6 +80,7 @@ export class DependenciesScanner {
     this.container.bindGlobalScope();
   }
 
+  //# get all module
   public async scanForModules(
     moduleDefinition:
       | ForwardReference
@@ -88,6 +90,7 @@ export class DependenciesScanner {
     scope: Type<unknown>[] = [],
     ctxRegistry: (ForwardReference | DynamicModule | Type<unknown>)[] = [],
   ): Promise<Module[]> {
+    //# container.addModule, use dfs add all module 利用 dfs 添加所有的 module
     const moduleInstance = await this.insertModule(moduleDefinition, scope);
     moduleDefinition =
       moduleDefinition instanceof Promise
@@ -112,7 +115,7 @@ export class DependenciesScanner {
           ),
           ...((moduleDefinition as DynamicModule).imports || []),
         ];
-
+    //# typical dfs
     let registeredModuleRefs = [];
     for (const [index, innerModule] of modules.entries()) {
       // In case of a circular dependency (ES module system), JavaScript will resolve the type to `undefined`.
@@ -349,6 +352,7 @@ export class DependenciesScanner {
     return provider && !isNil((provider as any).provide);
   }
 
+  //# insert provider
   public insertProvider(provider: Provider, token: string) {
     const isCustomProvider = this.isCustomProvider(provider);
     if (!isCustomProvider) {
@@ -421,6 +425,7 @@ export class DependenciesScanner {
   }
 
   public async registerCoreModule() {
+    // {module, exports, providers}
     const moduleDefinition = InternalCoreModuleFactory.create(
       this.container,
       this,
@@ -452,6 +457,7 @@ export class DependenciesScanner {
       });
   }
 
+  //# application provider
   public applyApplicationProviders() {
     const applyProvidersMap = this.getApplyProvidersMap();
     const applyRequestProvidersMap = this.getApplyRequestProvidersMap();
@@ -501,6 +507,7 @@ export class DependenciesScanner {
     };
   }
 
+  //# request provider key equal provider
   public getApplyRequestProvidersMap(): { [type: string]: Function } {
     return {
       [APP_INTERCEPTOR]: (interceptor: InstanceWrapper<NestInterceptor>) =>

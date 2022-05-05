@@ -18,6 +18,7 @@ export const RequestMapping = (
   const path = pathMetadata && pathMetadata.length ? pathMetadata : '/';
   const requestMethod = metadata[METHOD_METADATA] || RequestMethod.GET;
 
+  //# define metadata path method
   return (
     target: object,
     key: string | symbol,
@@ -25,6 +26,7 @@ export const RequestMapping = (
   ) => {
     Reflect.defineMetadata(PATH_METADATA, path, descriptor.value);
     Reflect.defineMetadata(METHOD_METADATA, requestMethod, descriptor.value);
+    //# 返回 descriptor
     return descriptor;
   };
 };
@@ -54,6 +56,7 @@ export const Post = createMappingDecorator(RequestMethod.POST);
  *
  * @publicApi
  */
+//# http method
 export const Get = createMappingDecorator(RequestMethod.GET);
 
 /**
